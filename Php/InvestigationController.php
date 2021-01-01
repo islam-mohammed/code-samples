@@ -180,7 +180,7 @@ class InvestigationController extends Controller
         return $q->where('is_closed', 0);
       });
       if ($opened_investigation->count()) {
-        abort('403', 'لا يمكن إنشاء تحقيق جديد قبل إغلاق التحقيق السايق');
+        abort(403, 'لا يمكن إنشاء تحقيق جديد قبل إغلاق التحقيق السايق');
       }
       $investigation = Investigation::create([
         'issue_prosecutor_id' => $issue_prosecutor_id,
@@ -1390,7 +1390,7 @@ class InvestigationController extends Controller
   public function investigationValidation(Investigation $investigation)
   {
     if (!$investigation) {
-      abort('لا يوجد تحقيق');
+      abort(404, 'لا يوجد تحقيق');
     }
   }
 
@@ -1398,7 +1398,7 @@ class InvestigationController extends Controller
   {
     $opened_investigations = $issue_prosecutor->investigations()->where('is_closed', false)->get();
     if ($opened_investigations->count()) {
-      abort('لا يوجد تحقيق');
+      abort(404, 'لا يوجد تحقيق');
     }
   }
 
